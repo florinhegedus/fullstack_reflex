@@ -21,6 +21,20 @@ def my_box() -> rx.Component:
         my_button(),
     )
     return box
+
+
+def my_div() -> rx.Component:
+    div = rx.el.div(
+        rx.el.p("This is basic HTML text!"),
+    )
+    return div
+
+
+def half_filled_progress() -> rx.Component:
+    progress = rx.progress(
+        value=50,
+    )
+    return progress
     
 
 def index() -> rx.Component:
@@ -28,6 +42,8 @@ def index() -> rx.Component:
     return rx.container(
         rx.color_mode.button(position="top-right"),
         my_box(),
+        my_div(),
+        half_filled_progress(),
     )
 
 
