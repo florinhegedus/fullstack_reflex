@@ -35,6 +35,10 @@ def half_filled_progress() -> rx.Component:
         value=50,
     )
     return progress
+
+
+def round_button() -> rx.Component:
+    button = rx.button("Click me",  border_radius="15px", font_size="18px")
     
 
 def index() -> rx.Component:
@@ -44,6 +48,7 @@ def index() -> rx.Component:
         my_box(),
         my_div(),
         half_filled_progress(),
+        round_button(),
     )
 
 
