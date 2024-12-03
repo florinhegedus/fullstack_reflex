@@ -109,7 +109,33 @@ def text_input():
         )
     )
     return text_input_box
-    
+
+
+def check_even(num: int):
+    return num % 2 == 0
+
+
+class EvenOddState(rx.State):
+    count: int = 0
+    text: str = "even"
+
+    @rx.event
+    def increment(self):
+        self.count += 1
+        if check_even(self.count):
+            self.text = "even"
+        else:
+            self.text = "odd"
+
+
+def counter_parity():
+    counter = rx.hstack(
+        rx.text(EvenOddState.count),
+        rx.text(EvenOddState.text),
+        rx.button("Increment", on_click=EvenOddState.increment),
+    )
+    return counter
+
 
 def index() -> rx.Component:
     # Welcome Page (Index)
@@ -123,6 +149,7 @@ def index() -> rx.Component:
         counter_increment(),
         counter_increment_by_amount(),
         text_input(),
+        counter_parity(),
     )
 
 
