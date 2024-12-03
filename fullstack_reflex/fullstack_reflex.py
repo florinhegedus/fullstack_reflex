@@ -90,6 +90,25 @@ def counter_increment_by_amount() -> rx.Component:
         ),
     )
     return counter
+
+
+class TextState(rx.State):
+    text: str = ""
+
+    @rx.event
+    def update_text(self, new_text: str):
+        self.text = new_text
+
+
+def text_input():
+    text_input_box = rx.vstack(
+        rx.text(TextState.text),
+        rx.input(
+            default_value=TextState.text,
+            on_blur=TextState.update_text,
+        )
+    )
+    return text_input_box
     
 
 def index() -> rx.Component:
@@ -103,6 +122,7 @@ def index() -> rx.Component:
         counter(),
         counter_increment(),
         counter_increment_by_amount(),
+        text_input(),
     )
 
 
