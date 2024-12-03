@@ -11,15 +11,23 @@ class State(rx.State):
     ...
 
 
-def basic_button() -> rx.Component:
+def my_button() -> rx.Component:
     return rx.button("Click me")
+
+
+def my_box() -> rx.Component:
+    box = rx.box(
+        rx.text("This is inside my_box"),
+        my_button(),
+    )
+    return box
     
 
 def index() -> rx.Component:
     # Welcome Page (Index)
     return rx.container(
         rx.color_mode.button(position="top-right"),
-        basic_button(),
+        my_box(),
     )
 
 
