@@ -128,13 +128,32 @@ class EvenOddState(rx.State):
             self.text = "odd"
 
 
-def counter_parity():
+def counter_parity() -> rx.Component:
     counter = rx.hstack(
         rx.text(EvenOddState.count),
         rx.text(EvenOddState.text),
         rx.button("Increment", on_click=EvenOddState.increment),
     )
     return counter
+
+
+class LoginState(rx.State):
+    logged_in: bool = False
+
+    def toggle_login(self):
+        self.logged_in = not self.logged_in
+
+
+def login_component() -> rx.Component:
+    comp = rx.vstack(
+        rx.cond(
+            LoginState.logged_in,
+            rx.heading("Logged in"),
+            rx.heading("Not logged in")
+        ),
+        rx.button("Toggle login", on_click=LoginState.toggle_login),
+    )
+    return comp
 
 
 def index() -> rx.Component:
@@ -150,6 +169,7 @@ def index() -> rx.Component:
         counter_increment_by_amount(),
         text_input(),
         counter_parity(),
+        login_component()
     )
 
 
