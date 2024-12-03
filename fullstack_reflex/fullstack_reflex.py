@@ -5,10 +5,9 @@ import reflex as rx
 from rxconfig import config
 
 
-class State(rx.State):
-    """The app state."""
-
-    ...
+class MyState(rx.State):
+    count: int = 0
+    color: str = "red"
 
 
 def my_button() -> rx.Component:
@@ -38,7 +37,36 @@ def half_filled_progress() -> rx.Component:
 
 
 def round_button() -> rx.Component:
-    button = rx.button("Click me",  border_radius="15px", font_size="18px")
+    button = rx.button(
+        "Click me",  border_radius="15px", font_size="18px"
+    )
+    return button
+
+
+def counter() -> rx.Component:
+    counter = rx.hstack(
+        rx.heading("Count: ", color=MyState.color),
+        rx.heading(MyState.count),
+    )
+    return counter
+
+
+class MyState2(rx.State):
+    count: int = 0
+
+    def increment(self):
+        self.count += 1
+
+
+def counter_increment() -> rx.Component:
+    counter = rx.hstack(
+        rx.heading(MyState2.count),
+        rx.button(
+            "Increment",
+            on_click=MyState2.increment,
+        ),
+    )
+    return counter
     
 
 def index() -> rx.Component:
@@ -49,6 +77,8 @@ def index() -> rx.Component:
         my_div(),
         half_filled_progress(),
         round_button(),
+        counter(),
+        counter_increment(),
     )
 
 
