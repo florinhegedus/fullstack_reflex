@@ -156,6 +156,21 @@ def login_component() -> rx.Component:
     return comp
 
 
+class ListState(rx.State):
+    items: list[str] = ["mere", "pere", "banane"]
+
+
+def render_item(item: rx.Var[str]):
+    return rx.list.item(item)
+
+
+def render_list() -> rx.Component:
+    list_comp = rx.box(
+        rx.foreach(ListState.items, render_item)
+    )
+    return list_comp
+
+
 def index() -> rx.Component:
     # Welcome Page (Index)
     return rx.container(
@@ -169,7 +184,8 @@ def index() -> rx.Component:
         counter_increment_by_amount(),
         text_input(),
         counter_parity(),
-        login_component()
+        login_component(),
+        render_list(),
     )
 
 
