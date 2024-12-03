@@ -51,7 +51,7 @@ def counter() -> rx.Component:
     return counter
 
 
-class MyState2(rx.State):
+class CounterState(rx.State):
     count: int = 0
 
     def increment(self):
@@ -60,10 +60,33 @@ class MyState2(rx.State):
 
 def counter_increment() -> rx.Component:
     counter = rx.hstack(
-        rx.heading(MyState2.count),
+        rx.heading(CounterState.count),
         rx.button(
             "Increment",
-            on_click=MyState2.increment,
+            on_click=CounterState.increment,
+        ),
+    )
+    return counter
+
+
+class CounterState2(rx.State):
+    count: int = 0
+
+    @rx.event
+    def increment(self, amount):
+        self.count += amount
+
+
+def counter_increment_by_amount() -> rx.Component:
+    counter = rx.hstack(
+        rx.heading(CounterState2.count),
+        rx.button(
+            "Increment by 1",
+            on_click=lambda: CounterState2.increment(1),
+        ),
+        rx.button(
+            "Increment by 5",
+            on_click=lambda: CounterState2.increment(5),
         ),
     )
     return counter
@@ -79,6 +102,7 @@ def index() -> rx.Component:
         round_button(),
         counter(),
         counter_increment(),
+        counter_increment_by_amount(),
     )
 
 
